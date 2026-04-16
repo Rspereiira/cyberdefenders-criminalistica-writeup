@@ -1,4 +1,4 @@
-# 🕵️ DFIR Investigation - The Crime Lab
+<img width="407" height="865" alt="image" src="https://github.com/user-attachments/assets/8d9f0558-eefc-4b8f-880a-0d2677a9b3c9" /># 🕵️ DFIR Investigation - The Crime Lab
 
 ## 📌 Overview
 
@@ -58,7 +58,7 @@ Na seção de **Recent Activity**, foi encontrada uma imagem indicando uma poss�
 
 * **Local:** The Nile Ritz-Carlton (Cairo)
 
-![Location](screenshots/atividades_recentes.png)
+![Location](screenshots/Location_Analysis.png)
 
 ---
 
