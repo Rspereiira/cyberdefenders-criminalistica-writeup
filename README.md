@@ -48,7 +48,7 @@ A partir da base de contatos, foi possível identificar um indivíduo relevante 
 * **Nome:** Shady Wahab
 * **Telefone:** +20 117 213 7258
 
-![Contact](screenshots/Contato.png)
+![Contact](screenshots/contact_shady.png)
 
 ---
 
@@ -58,7 +58,7 @@ Na seção de **Recent Activity**, foi encontrada uma imagem indicando uma poss�
 
 * **Local:** The Nile Ritz-Carlton (Cairo)
 
-![Location](screenshots/Location_Analysis.png)
+![Location](screenshots/location_cairo.png)
 
 ---
 
