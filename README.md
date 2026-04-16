@@ -37,7 +37,7 @@ Na análise dos SMS, foi encontrada uma mensagem indicando uma possível cobran�
 
 * Valor: **250.000 EGP**
 
-![SMS Evidence](screenshots/Valor_divida.png)
+![SMS Evidence](screenshots/SMS_Evidence.png)
 
 ---
 
@@ -48,7 +48,7 @@ A partir da base de contatos, foi possível identificar um indivíduo relevante 
 * **Nome:** Shady Wahab
 * **Telefone:** +20 117 213 7258
 
-![Contact](screenshots/contato.png)
+![Contact](screenshots/Contato.png)
 
 ---
 
