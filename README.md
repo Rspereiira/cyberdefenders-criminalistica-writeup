@@ -4,7 +4,20 @@
 
 Este projeto documenta uma investigação forense digital realizada a partir da análise de artefatos extraídos de um dispositivo Android.
 
-A análise foi conduzida utilizando a ferramenta **ALEAPP (Android Logs Events And Protobuf Parser)**, com o objetivo de identificar atividades suspeitas, correlacionar evidências e reconstruir a sequência de eventos do caso.
+A investigação foi conduzida com a ferramenta **ALEAPP (Android Logs Events And Protobuf Parser)**, com foco na identificação de evidências, correlação de artefatos e reconstrução da sequência de eventos observada no caso.
+
+---
+
+## 🎯 Objective
+
+O objetivo deste projeto foi analisar os dados extraídos do dispositivo para identificar elementos relevantes da investigação, como:
+
+* aplicativos instalados
+* mensagens SMS
+* contatos
+* localização
+* arquivos de mídia
+* dados recuperados de arquivos **SQLite WAL**
 
 ---
 
@@ -13,37 +26,49 @@ A análise foi conduzida utilizando a ferramenta **ALEAPP (Android Logs Events A
 * ALEAPP
 * SQLite Database Analysis
 * SHA-256 Hash
+* Android Artifact Analysis
+
+---
+
+## 📂 Evidence Source
+
+Os artefatos analisados foram extraídos de um dispositivo Android e incluem diferentes fontes de evidência, como:
+
+* aplicativos instalados no dispositivo
+* banco de dados SQLite contendo SMS e contatos
+* diretórios de mídia e downloads
+* arquivos **WAL (Write-Ahead Logging)**
+
+Esses dados foram processados e interpretados com apoio da ferramenta **ALEAPP**.
 
 ---
 
 ## 🔍 Step 1 - Installed Applications Analysis
 
-A análise inicial foi realizada sobre os aplicativos instalados no dispositivo.
+A análise inicial foi feita sobre os aplicativos instalados no dispositivo.
 
-Foi identificado o seguinte aplicativo:
+Foi identificado o aplicativo:
 
 * **Olymp Trade**
 * Package: `com.ticno.olymptrade`
 
-A presença desse aplicativo pode indicar atividade financeira relevante no contexto da investigação.
+A presença desse aplicativo pode indicar atividade financeira relevante dentro do contexto investigativo.
 
 ![Installed Apps](screenshots/olymp_trade.png)
 
-Além disso, foi analisado o **SHA-256 Hash** do aplicativo para verificação de integridade e possível correlação com bases de ameaça.
+Após a identificação do aplicativo, foi observado o **SHA-256 Hash**, permitindo validar a integridade do artefato e possibilitando futura correlação com outras fontes de análise.
 
-![SHA256](screenshots/sha256_hash.png)
+![SHA-256 Hash](screenshots/sha256_hash.png)
 
 ---
 
 ## 📩 Step 2 - SMS Analysis
 
-A análise foi realizada sobre o banco de dados de mensagens (`mmssms.db`), contendo registros de SMS do dispositivo.
-
-Foi identificada uma mensagem com conteúdo de possível coerção financeira:
+Na análise dos registros de mensagens SMS, foi encontrada uma mensagem com possível conteúdo de coerção financeira.
 
 * Valor mencionado: **250.000 EGP**
 
-O conteúdo da mensagem sugere pressão ou ameaça relacionada a uma dívida.
+Esse artefato sugere a existência de uma cobrança com tom de ameaça ou pressão, o que torna a mensagem relevante para a investigação.
 
 ![SMS Evidence](screenshots/sms_threat.png)
 
@@ -51,12 +76,12 @@ O conteúdo da mensagem sugere pressão ou ameaça relacionada a uma dívida.
 
 ## 👤 Step 3 - Contact Identification
 
-A partir da base de contatos do dispositivo, foi identificado um indivíduo relevante para a investigação:
+A partir da base de contatos do dispositivo, foi identificado um contato relevante para o caso:
 
 * **Nome:** Shady Wahab
 * **Telefone:** +20 117 213 7258
 
-Este contato pode estar diretamente relacionado à mensagem identificada anteriormente.
+Esse contato pode estar relacionado aos demais elementos encontrados durante a investigação, especialmente no contexto da cobrança identificada anteriormente.
 
 ![Contact](screenshots/contact_shady_wahab.png)
 
@@ -64,11 +89,12 @@ Este contato pode estar diretamente relacionado à mensagem identificada anterio
 
 ## 📍 Step 4 - Location Analysis
 
-Na análise de **Recent Activity**, foi encontrada uma imagem indicando uma possível localização do dispositivo:
+Na análise da seção de **Recent Activity**, foi encontrada uma imagem indicando uma possível localização associada ao dispositivo:
 
-* **Local:** The Nile Ritz-Carlton (Cairo)
+* **Local:** The Nile Ritz-Carlton
+* **Cidade:** Cairo
 
-Essa informação sugere a presença física do usuário em Cairo durante o período analisado.
+Esse artefato sugere que o usuário esteve, ou ao menos registrou atividade, nessa localização durante o período analisado.
 
 ![Location](screenshots/location_cairo.png)
 
@@ -76,17 +102,17 @@ Essa informação sugere a presença física do usuário em Cairo durante o per�
 
 ## ✈️ Step 5 - Travel Evidence
 
-Durante a análise do sistema de arquivos, foi identificado o seguinte artefato:
+Durante a análise do sistema de arquivos, foi identificado um artefato relevante dentro do diretório de downloads:
 
-* Caminho:
+* Caminho encontrado:
   `/data/media/0/Download/PlaneTicket.png`
 
-A imagem corresponde a uma passagem aérea com o seguinte trajeto:
+A imagem encontrada corresponde a uma passagem aérea com o seguinte trajeto:
 
 * **Origem:** Cairo
 * **Destino:** Las Vegas
 
-Essa evidência indica deslocamento internacional relevante para o contexto da investigação.
+Essa evidência indica deslocamento internacional e amplia a relevância dos achados anteriores.
 
 ![Flight Ticket](screenshots/flight_ticket.png)
 
@@ -94,86 +120,91 @@ Essa evidência indica deslocamento internacional relevante para o contexto da i
 
 ## 🧪 Step 6 - SQLite WAL Analysis
 
-A análise avançada foi realizada sobre arquivos **SQLite Journal & WAL**, especificamente o arquivo `a-wal`.
+A etapa mais avançada da análise envolveu arquivos **SQLite Journal & WAL**, com foco na recuperação de dados não persistidos no banco principal.
 
-Arquivos WAL (Write-Ahead Logging) armazenam dados temporários que ainda não foram gravados no banco principal, sendo uma fonte importante para recuperação de evidências.
+Os arquivos **WAL (Write-Ahead Logging)** podem armazenar informações temporárias ou residuais que ainda não foram gravadas definitivamente no banco SQLite, sendo uma fonte valiosa em análise forense.
 
-Durante a análise, foi aplicado um filtro pela palavra-chave **"meet"**, resultando na identificação da seguinte informação:
+Durante essa etapa, foi localizado o arquivo `a-wal`, que foi aberto para investigação adicional.
+
+Imagem da análise inicial do arquivo WAL:
+
+![WAL Extraction](screenshots/wal_extraction.png)
+
+Em seguida, foi aplicado um filtro de busca utilizando a palavra-chave **"meet"**.
+
+Como resultado, foi identificada a seguinte informação:
 
 > "We'll meet at The Mob Museum"
 
-Essa evidência indica o planejamento de um encontro em local específico.
+Esse achado indica o planejamento de um encontro em local específico, o que adiciona contexto importante à investigação.
 
-![WAL Analysis - Extraction](screenshots/wal_extraction.png)
+Resultado da busca por palavra-chave:
 
-![WAL Analysis - Keyword](screenshots/wal_keyword.png)
+![WAL Keyword Search](screenshots/wal_keyword.png)
 
 ---
 
 ## 📊 Timeline Reconstruction
 
-| Etapa | Evento                                               |
-| ----- | ---------------------------------------------------- |
-| 1     | Recebimento de mensagem com cobrança de dívida       |
-| 2     | Identificação de aplicativo financeiro suspeito      |
-| 3     | Identificação de contato relevante                   |
-| 4     | Registro de localização em Cairo                     |
-| 5     | Descoberta de passagem aérea para Las Vegas          |
-| 6     | Identificação de encontro planejado (The Mob Museum) |
+| Ordem | Evento                                                |
+| ----- | ----------------------------------------------------- |
+| 1     | Identificação de mensagem com cobrança de dívida      |
+| 2     | Identificação do aplicativo Olymp Trade               |
+| 3     | Identificação do contato Shady Wahab                  |
+| 4     | Registro de possível localização em Cairo             |
+| 5     | Descoberta de passagem aérea para Las Vegas           |
+| 6     | Identificação de encontro planejado no The Mob Museum |
 
 ---
 
 ## 🧠 Analysis
 
-A correlação das evidências permite identificar a seguinte sequência de eventos:
+A correlação dos artefatos analisados permite construir uma sequência lógica de eventos.
 
-* O dispositivo recebeu uma mensagem indicando cobrança de dívida com possível caráter coercitivo
-* Um contato específico (Shady Wahab) pode estar associado a essa comunicação
-* O usuário esteve localizado em Cairo
-* Foi identificada uma passagem aérea para Las Vegas
-* Há evidência de um encontro planejado no local **The Mob Museum**
+Primeiro, foi identificada uma mensagem SMS com referência a uma dívida no valor de **250.000 EGP**, sugerindo um cenário de pressão financeira. Em seguida, foi localizado um contato relevante, **Shady Wahab**, potencialmente relacionado ao contexto da mensagem.
 
-Esses elementos sugerem um possível cenário envolvendo coerção financeira, deslocamento internacional e encontro previamente organizado.
+Na continuidade da análise, foi observada uma possível localização vinculada ao dispositivo em **The Nile Ritz-Carlton**, no Cairo. Depois disso, foi encontrada uma imagem de passagem aérea indicando viagem de **Cairo para Las Vegas**, o que sugere deslocamento internacional associado ao caso.
+
+Por fim, a análise do arquivo **SQLite WAL** revelou a frase **"We'll meet at The Mob Museum"**, indicando um encontro previamente planejado.
+
+Em conjunto, esses artefatos sugerem um cenário envolvendo coerção financeira, movimentação internacional e organização de encontro em local específico.
 
 ---
 
 ## 🚨 Key Findings
 
+* Identificação de aplicativo com possível relevância financeira
 * Evidência de possível coerção financeira via SMS
-* Identificação de contato relevante para o caso
-* Registro de localização física do usuário
-* Indícios de deslocamento internacional
-* Planejamento de encontro em local específico
+* Identificação de contato potencialmente relacionado ao caso
+* Registro de possível localização do usuário em Cairo
+* Evidência de deslocamento internacional para Las Vegas
+* Indício de encontro planejado no local **The Mob Museum**
 
 ---
 
 ## 🔐 Evidence Validation
 
-* Extração realizada com ferramenta forense (**ALEAPP**)
-* Integridade de arquivos verificada via **SHA-256 Hash**
-* Recuperação de dados voláteis através de arquivos **SQLite WAL**
+* Os artefatos foram analisados com a ferramenta **ALEAPP**
+* A integridade de evidências foi observada por meio de **SHA-256 Hash**
+* Dados adicionais foram recuperados a partir de arquivos **SQLite WAL**
+* As evidências foram correlacionadas entre diferentes fontes do dispositivo
 
 ---
 
 ## 🧠 Skills Demonstrated
 
 * Mobile Forensics (Android)
-* Análise de artefatos com ALEAPP
-* Análise de banco de dados SQLite
-* Investigação de arquivos WAL
-* Correlação de evidências
-* Reconstrução de timeline
+* Artifact Analysis with ALEAPP
+* SQLite Database Analysis
+* WAL File Investigation
+* Evidence Correlation
+* Timeline Reconstruction
+* Investigative Documentation
 
 ---
 
 ## 📎 Conclusion
 
-A investigação permitiu identificar uma sequência consistente de eventos envolvendo comunicação suspeita, identificação de contato relevante, deslocamento internacional e planejamento de encontro.
+A investigação permitiu identificar uma sequência consistente de evidências digitais envolvendo comunicação suspeita, contato relevante, possível localização, viagem internacional e planejamento de encontro.
 
-O projeto demonstra a capacidade de conduzir uma análise forense estruturada, correlacionando múltiplas fontes de evidência para reconstrução de um cenário investigativo.
-
----
-
-## 🌍 Note
-
-This project is documented in Portuguese, but technical terms are kept in English to follow industry standards.
+Este projeto demonstra a capacidade de conduzir uma análise forense estruturada em ambiente Android, correlacionando múltiplos artefatos para reconstrução de um cenário investigativo.
