@@ -1,4 +1,4 @@
-<img width="407" height="865" alt="image" src="https://github.com/user-attachments/assets/8d9f0558-eefc-4b8f-880a-0d2677a9b3c9" /># 🕵️ DFIR Investigation - The Crime Lab
+# 🕵️ DFIR Investigation - The Crime Lab
 
 ## 📌 Overview
 
