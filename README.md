@@ -74,7 +74,7 @@ A imagem revela uma passagem aérea com o seguinte trajeto:
 * **Origem:** Cairo
 * **Destino:** Las Vegas
 
-![Flight Ticket](screenshots/caminho_viagem.png)
+![Flight Ticket](screenshots/flight_ticket.png)
 
 ---
 
