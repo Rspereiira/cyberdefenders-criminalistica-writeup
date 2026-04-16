@@ -82,13 +82,15 @@ A imagem revela uma passagem aérea com o seguinte trajeto:
 
 Na análise de **SQLite Journal & WAL**, foi possível recuperar dados adicionais.
 
+![WAL Extraction](screenshots/wal_extraction.png)
+
 Ao realizar um filtro pela palavra-chave **"meet"**, foi encontrada a seguinte informação:
 
 > "We'll meet at The Mob Museum"
 
 Isso indica um possível local de encontro planejado.
 
-![WAL Analysis](screenshots/ultima_etapa1.png)
+![WAL Keyword](screenshots/wal_keyword.png)
 
 ---
 
